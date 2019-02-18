@@ -1,0 +1,86 @@
+library(qdapRegex)
+library(markovchain)
+
+## Read in data and data prep #####################################
+office <- read.csv('C:/users/joshua/desktop/OfficeLines.csv')
+office$line_text <- as.character(office$line_text)
+
+# scene actions (any text between [] brackets)
+actions <- rm_between(office$line_text, "[", "]", extract=T)
+actions <- actions[!is.na(actions)]
+
+# removes actions (all brackets and text between brackets)
+for (i in 1:length(office$line_text)){
+  office[i,1] <-rm_between(office[i,1], "[", "]", extract=F, replacement="")
+  if(i %% 1000 == 0){print(i)}
+}
+
+
+
+michael <- subset(office,office$speaker=="Michael")
+dwight <- subset(office,office$speaker=="Dwight")
+jim <- subset(office,office$speaker=="Jim")
+pam <- subset(office,office$speaker=="Pam")
+andy <- subset(office,office$speaker=="Andy")
+ryan <- subset(office,office$speaker=="Ryan")
+darryl <- subset(office,office$speaker=="Darryl")
+meredith <- subset(office,office$speaker=="Meredith")
+angela <- subset(office,office$speaker=="Angela")
+kelly <- subset(office,office$speaker=="Kelly")
+kevin <- subset(office,office$speaker=="Kevin")
+oscar <- subset(office,office$speaker=="Oscar")
+erin <- subset(office,office$speaker=="Erin")
+nellie <- subset(office,office$speaker=="Nellie")
+phyllis <- subset(office,office$speaker=="Phyllis")
+toby <- subset(office,office$speaker=="Toby")
+gabe <- subset(office,office$speaker=="Gabe")
+creed <- subset(office,office$speaker=="Creed")
+jan <- subset(office,office$speaker=="Jan")
+dWallace <- subset(office,office$speaker=="David")
+stanley <- subset(office,office$speaker=="Stanley")
+
+script <- function(df){
+character <- as.vector(df[,1])
+character <- character[nchar(character) > 0]
+
+character <- gsub('.', ' .', character, fixed = TRUE)
+character <- gsub(',', ' ,', character, fixed = TRUE)
+character <- gsub('!', ' !', character, fixed = TRUE)
+character <- gsub('(', '( ', character, fixed = TRUE)
+character <- gsub(')', ' )', character, fixed = TRUE)
+
+
+terms <- unlist(strsplit(character, ' '))
+
+fit.df <- markovchainFit(data = terms)
+return(fit.df)
+}
+
+
+out.michael <- script(michael)
+out.dwight <- script(dwight)
+out.jim <- script(jim)
+out.pam <- script(pam)
+out.andy <- script(andy)
+out.ryan <- script(ryan)
+out.darryl <- script(darryl)
+out.meredith <- script(meredith)
+out.angela <- script(angela)
+out.kelly <- script(kelly)
+out.kevin <- script(kevin)
+out.oscar <- script(oscar)
+out.erin <- script(erin)
+out.nellie <- script(nellie)
+out.phyllis <- script(phyllis)
+out.toby <- script(toby)
+out.gabe <- script(gabe)
+out.creed <- script(creed)
+out.jan <- script(jan)
+out.dWallace <- script(dWallace)
+out.stanley <- script(stanley)
+
+
+#plot(fit$estimate)
+
+paste(markovchainSequence(n=3, markovchain=out.dWallace$estimate), collapse=' ')
+
