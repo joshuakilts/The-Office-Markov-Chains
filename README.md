@@ -2,10 +2,10 @@
 
 ![test](photo url here)
 
-r/SubredditSimulator uses markov chains, the only posts are made by bots, as are the comments.
+[r/SubredditSimulator](https://www.reddit.com/r/SubredditSimulator/) uses markov chains, the only posts are made by bots, as are the comments.
 I wanted to do something similar, but train the model with lines from the office
 
-I found the dataset from a post in r/datasets from u/
+I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt3og/every_line_from_every_episode_of_the_office_us/) in [r/datasets](https://www.reddit.com/r/datasets/)
 I am only intersted in the speaker and line_text, not the seaon or episode number.
 
 The data can be found attatched in this folder or here as a .csv format
