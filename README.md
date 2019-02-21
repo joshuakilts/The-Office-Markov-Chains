@@ -1,17 +1,17 @@
 # Natural Language Processing Using Markov Chains
 ## Predicting Lines from The Office
 ![The Office Logo](/Images/theOffice.png)
-The Office (US version), is an american adaptation of the british sitcom The Office. The Office follows employees of Dunder Mifflin, a paper supply company located in Scranton, PA. The Office ran for 9 seasons and features many unique and distinct characters, making an analysis of scripts from the show very insteresting as the different characters are analyzed.
+The Office (US version), is an American adaptation of the British sitcom The Office. The Office follows employees of Dunder Mifflin, a paper supply company located in Scranton, PA. The Office ran for 9 seasons and features many unique and distinct characters, making an analysis of scripts from the show very interesting as the different characters are analyzed.
 
-I got the idea to build some Markov chains after spending some time on Reddit, in a community named [r/SubredditSimulator](https://www.reddit.com/r/SubredditSimulator/). This community is one of the most unique subreddits, as humans are not allowed to post or comment; all posts and comments are writen by bots. Comments and posts are sometimes gibberish, almost always silly, and sometimes even scarily accurate. Most, if not all, use Markov chains to predict text from a given training set. (see [this article](https://medium.com/ymedialabs-innovation/next-word-prediction-using-markov-model-570fc0475f96) for more information on Markov chains)
+I got the idea to build some Markov chains after spending some time on Reddit, in a community named [r/SubredditSimulator](https://www.reddit.com/r/SubredditSimulator/). This community is one of the most unique subreddits, as humans are not allowed to post or comment; all posts and comments are written by bots. Comments and posts are sometimes gibberish, almost always silly, and sometimes even scarily accurate. Most, if not all, use Markov chains to predict text from a given training set. (See [this article](https://medium.com/ymedialabs-innovation/next-word-prediction-using-markov-model-570fc0475f96) for more information on Markov chains)
 
 I wanted to do something similar, but train the model with lines from The Office.
 
 ### Data  
-I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt3og/every_line_from_every_episode_of_the_office_us/) in [r/datasets](https://www.reddit.com/r/datasets/) (a great resource if you are looking for intereseting datasets).
+I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt3og/every_line_from_every_episode_of_the_office_us/) in [r/datasets](https://www.reddit.com/r/datasets/) (a great resource if you are looking for interesting datasets).
 
-Though the data includes season, episode, and scene numbers, I am only intersted in the speaker and line text.
-The data can be found at [this link](https://docs.google.com/spreadsheets/d/18wS5AAwOh8QO95RwHLS95POmSNKA2jjzdt0phrxeAE0/edit?usp=sharing) attatched [here](/OfficeLines.csv) in .csv format.
+Though the data includes season, episode, and scene numbers, I am only interested in the speaker and line text.
+The data can be found at [this link](https://docs.google.com/spreadsheets/d/18wS5AAwOh8QO95RwHLS95POmSNKA2jjzdt0phrxeAE0/edit?usp=sharing) attached [here](/OfficeLines.csv) in .csv format.
 
 The data contains two columns (line text and speaker), and just under 60,000 lines.
 Reading in data from .csv format:
@@ -25,7 +25,7 @@ R reads each line text as a different factor, so we need to convert the factors 
 ```
 
 ### Required packages
-This analysis was preformed in R (stay tuned for the Python version).
+This analysis was performed in R (stay tuned for the Python version).
 Two packages were used:
 ```
 library(qdapRegex) 
@@ -38,7 +38,7 @@ library(markovchain)
 
 ### Data preparation
 The first subset I create is the scene descriptions. These are embedded in the lines, but are always surrounded by square brackets []
-This is where the qdapRegex package comes into play. We use this package save anything between square brackets as it's own string.
+This is where the qdapRegex package comes into play. We use this package save anything between square brackets as its own string.
 ```
 sceneDescriptions <- rm_between(office$line_text, "[", "]", extract=T)
 ```
@@ -85,8 +85,8 @@ officeSub <- rbind(michael,dwight,jim,pam,andy,ryan,darryl,meredith,
 ```
 
 ### Analysis
-This function takes one of the character subscripts and returns a markov chain model 
-(warning: this takes some time with characters that have a lot of lines)
+This function takes one of the character subscripts and returns a Markov chain model 
+(Warning: this takes some time with characters that have a lot of lines)
 ```
 script <- function(df){
  character <- as.vector(df[,1])
@@ -143,7 +143,7 @@ out.sceneDescriptions <- markovchainFit(data = terms)
 
 ### Prediction
 Now we will put everything together.
-Fist, we make lists of the character dataframes as well as the Markov chain fit model for each character.
+First, we make lists of the character dataframes as well as the Markov chain fit model for each character.
 ```
 characters <- list(michael,dwight,jim,pam,andy,ryan,darryl,meredith,angela,kelly,
                 kevin,oscar,erin,nellie,phyllis,toby,gabe,creed,jan,dWallace,stanley)
@@ -154,7 +154,7 @@ character.out <- list(out.michael,out.dwight,out.jim,out.pam,out.andy,out.ryan,
                   out.dWallace,out.stanley)
 ```
 
-This function picks a character based on a distributio of who is most likely to speak, and returns a line. The length of the line is based off a distribution of that character's line lengths. There is also a 1 in 5 chance of genereating a scene description alongside the produced line.
+This function picks a character based on a distribution of who is most likely to speak, and returns a line. The length of the line is based off a distribution of that character's line lengths. There is also a 1 in 5 chance of generating a scene description alongside the produced line.
 ```
 getLine <- function(){
  rand <- as.character(officeSub[sample(1:length(officeSub$speaker),1),2])
