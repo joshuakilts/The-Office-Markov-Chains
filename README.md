@@ -13,7 +13,18 @@ I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt
 Though the data includes season, episode, and scene numbers, I am only intersted in the speaker and line text.
 The data can be found at [this link](https://docs.google.com/spreadsheets/d/18wS5AAwOh8QO95RwHLS95POmSNKA2jjzdt0phrxeAE0/edit?usp=sharing) attatched [here](/OfficeLines.csv) in .csv format.
 
+The data contains two columns (line text and speaker), and just under 60,000 lines.
+Reading in data from .csv format:
+```
+office <- read.csv('.../OfficeLines.csv')
+```
 
+R reads each line text as a different factor, so we need to convert the factors to characters.
+```
+   office$line_text <- as.character(office$line_text)
+```
+
+### Required packages
 This analysis was preformed in R (stay tuned for the Python version).
 Two packages were used:
 ```
@@ -24,19 +35,10 @@ library(markovchain)
 # Builds the Markov chain and predicts new lines
 ```
 
-The data contains two columns (line text and speaker), and just under 60,000 lines.
-Reading in data from .csv format:
-```
-office <- read.csv('.../OfficeLines.csv')
-```
 
-r reads each line text as a different factor, so we need to convert the factors to characters.
-```
-   office$line_text <- as.character(office$line_text)
-```
-
+### Data preparation
 The first subset I create is the scene descriptions. These are embedded in the lines, but are always surrounded by square brackets []
-This is where the qdapRegex comes in to play. We use this package save anything between square brackets as it's own string.
+This is where the qdapRegex package comes into play. We use this package save anything between square brackets as it's own string.
 ```
 sceneDescriptions <- rm_between(office$line_text, "[", "]", extract=T)
 ```
@@ -47,14 +49,14 @@ We get rid of the NAs here for convenience.
 sceneDescriptions <- sceneDescriptions[!is.na(sceneDescriptions)]
 ```
 
-We have saved our actions, so we now need to remove them from the line text
+We have saved our scene descriptions, so we now need to remove them from the line text
 ```
 for (i in 1:length(office$line_text)){
   office[i,1] <-rm_between(office[i,1], "[", "]", extract=F, replacement="")
 }
 ```
 
-We now make a subset of each character we want (the top 20 were selected). We will also make a dataframe of just the top 20 characters.
+We now make a subset of each character we want (20 were selected for this project). We will also make a dataframe of these 20 characters.
 ```
 michael <- subset(office,office$speaker=="Michael")
 dwight <- subset(office,office$speaker=="Dwight")
@@ -82,6 +84,7 @@ officeSub <- rbind(michael,dwight,jim,pam,andy,ryan,darryl,meredith,
                    gabe,creed,jan,stanley)
 ```
 
+### Analysis
 This function takes one of the character subscripts and returns a markov chain model 
 (warning: this takes some time with characters that have a lot of lines)
 ```
@@ -124,7 +127,8 @@ out.jan <- script(jan)
 out.stanley <- script(stanley)
 ```
 
-We are also going to predict scene descriptions:
+
+We are also going to predict scene descriptions, so we build a Markov chain model for the descriptions we saved earlier:
 ```
 character <- as.vector(sceneDescriptions)
 character <- character[nchar(character) > 0]
@@ -137,6 +141,7 @@ terms <- unlist(strsplit(character, ' '))
 out.sceneDescriptions <- markovchainFit(data = terms)
 ```
 
+### Prediction
 Now we will put everything together.
 Fist, we make lists of the character dataframes as well as the Markov chain fit model for each character.
 ```
@@ -149,8 +154,7 @@ character.out <- list(out.michael,out.dwight,out.jim,out.pam,out.andy,out.ryan,
                   out.dWallace,out.stanley)
 ```
 
-
-This function picks a character at random (based on character dist.) and returns a line. The length of the line is based off of that characters line lengths. There is also a 1 in 5 chance of genereating a scene description alongside the produced line.
+This function picks a character based on a distributio of who is most likely to speak, and returns a line. The length of the line is based off a distribution of that character's line lengths. There is also a 1 in 5 chance of genereating a scene description alongside the produced line.
 ```
 getLine <- function(){
  rand <- as.character(officeSub[sample(1:length(officeSub$speaker),1),2])
