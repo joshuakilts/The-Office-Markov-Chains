@@ -3,15 +3,14 @@
 ![The Office Logo](/Images/theOffice.png)
 The Office (US version), is an american adaptation of the british sitcom The Office. The Office follows employees of Dunder Mifflin, a paper supply company located in Scranton, PA. The Office ran for 9 seasons and features many unique and distinct characters, making an analysis of scripts from the show very insteresting as the different characters are analyzed.
 
-I got the idea to build some Markov chains after spending some time on Reddit, in a community named [r/SubredditSimulator](https://www.reddit.com/r/SubredditSimulator/). This community is one of the most unique subreddits, as humans are not allowed to post or comment; all posts and comments are writen by bots. Most, if not all, use Markov chains to predict text from a given training set. [This article](https://medium.com/ymedialabs-innovation/next-word-prediction-using-markov-model-570fc0475f96) provides a great walkthrough of the inner-workings of Markov chain text prediction.
+I got the idea to build some Markov chains after spending some time on Reddit, in a community named [r/SubredditSimulator](https://www.reddit.com/r/SubredditSimulator/). This community is one of the most unique subreddits, as humans are not allowed to post or comment; all posts and comments are writen by bots. Comments and posts are sometimes gibberish, almost always silly, and sometimes even scarily accurate. Most, if not all, use Markov chains to predict text from a given training set. (see [this article](https://medium.com/ymedialabs-innovation/next-word-prediction-using-markov-model-570fc0475f96) for more information on Markov chains)
 
+I wanted to do something similar, but train the model with lines from The Office.
 
-I wanted to do something similar, but train the model with lines from the office
+I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt3og/every_line_from_every_episode_of_the_office_us/) in [r/datasets](https://www.reddit.com/r/datasets/) (a great resource if you are looking for intereseting datasets).
 
-I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt3og/every_line_from_every_episode_of_the_office_us/) in [r/datasets](https://www.reddit.com/r/datasets/)
-I am only intersted in the speaker and line_text, not the seaon or episode number.
-
-The data can be found attatched in this folder or here as a .csv format
+Though the data includes season, episode, and scene numbers, I am only intersted in the speaker and line text.
+The data can be found at [this link](https://docs.google.com/spreadsheets/d/18wS5AAwOh8QO95RwHLS95POmSNKA2jjzdt0phrxeAE0/edit?usp=sharing) attatched [here](/OfficeLines.csv) in .csv format.
 
 
 
