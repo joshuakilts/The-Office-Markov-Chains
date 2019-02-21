@@ -7,6 +7,12 @@ I got the idea to build some Markov chains after spending some time on Reddit, i
 
 I wanted to do something similar, but train the model with lines from The Office.
 
+### Sample results
+Full results can be found below, but here are some of my favorite selections:
+
+
+
+
 ### Data  
 I found the dataset from a [post](https://www.reddit.com/r/datasets/comments/6yt3og/every_line_from_every_episode_of_the_office_us/) in [r/datasets](https://www.reddit.com/r/datasets/) (a great resource if you are looking for interesting datasets).
 
@@ -268,3 +274,8 @@ getLine <- function(){
  line <- paste(who, actionForLine, sentance)
  return(line)
 }
+```
+
+And thats it!
+Selections
+Full text
