@@ -1,7 +1,7 @@
 # Natural Language Processing Using Markov Chains
 ## Predicting Lines from The Office
 ![The Office Logo](/Images/theOffice.png)
-The Office (US version), is an American adaptation of the British sitcom The Office. The Office follows employees of Dunder Mifflin, a paper supply company located in Scranton, PA. The Office ran for 9 seasons and features many unique and distinct characters, making an analysis of scripts from the show very interesting as the different characters are analyzed.
+The Office (US version), is an American adaptation of the British sitcom The Office. The Office follows employees of Dunder Mifflin, a paper supply company located in Scranton, PA. The Office ran for nine seasons and features many unique and distinct characters, making an analysis of scripts from the show very interesting as the different characters are analyzed.
 
 I got the idea to build some Markov chains after spending some time on Reddit, in a community named [r/SubredditSimulator](https://www.reddit.com/r/SubredditSimulator/). This community is one of the most unique subreddits, as humans are not allowed to post or comment; all posts and comments are written by bots. Comments and posts are sometimes gibberish, almost always silly, and sometimes even scarily accurate. Most, if not all, use Markov chains to predict text from a given training set. (See [this article](https://medium.com/ymedialabs-innovation/next-word-prediction-using-markov-model-570fc0475f96) for more information on Markov chains)
 
