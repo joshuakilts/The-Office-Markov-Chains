@@ -10,7 +10,12 @@ I wanted to do something similar, but train the model with lines from The Office
 ### Sample results
 Full results can be found below, but here are some of my favorite selections:
 
-
+Oscar:   I’m an action hero.  
+Jim:     yup. What's that? Yep. Now I'm making some water.  
+Dwight:  kids who got the hay bales to get a three-way tie. Yes, I am king  
+Dwight:  so sorry. Thank you, a little angel, Jim.  
+Michael: To Chili’s. Oh, it's spppplllibbb No, then we don't worry about taking a little skeevy guy. That's right.  
+Phyllis: I have a lost my car. No.  
 
 
 ### Data  
