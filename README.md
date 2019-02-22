@@ -281,6 +281,6 @@ getLine <- function(){
 }
 ```
 
-And thats it!
-Selections
-Full text
+### Output
+[Selections](/sampleLines.txt)  
+[Full text](/allLines.txt)
